@@ -1,12 +1,8 @@
-from flask import Flask  # importing Flask class.
 from flask import render_template, url_for, flash, redirect
+from flaskblog import app
+from flaskblog.forms import RegistrationForm, LoginForm  # Classes from forms.py
+from flaskblog.models import User, Post
 
-from forms import RegistrationForm, LoginForm  # Classes from forms.py
-
-app = Flask(__name__)
-
-# Secret Key: Protect against modifying cookies and other attacks.
-app.config['SECRET_KEY'] = '3c36493447a6e32d68167947ddac18ec'
 
 posts = [
     {
@@ -22,7 +18,6 @@ posts = [
         'date_posted': 'April 23, 2018'
     }
 ]
-
 
 # Multiple routes for the same page.
 @app.route('/home')
@@ -59,7 +54,3 @@ def login():
 
     return render_template('login.html', title='Login', form=form)
     # We have access to form(in read) inside our HTML files.
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
