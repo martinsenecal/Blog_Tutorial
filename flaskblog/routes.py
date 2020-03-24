@@ -1,8 +1,10 @@
+import secrets, os
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm  # Classes from forms.py
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm  # Classes from forms.py
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from PIL import Image  # Resize Picture to take less Space.
 
 posts = [
     {
@@ -78,8 +80,50 @@ def logout():
     return redirect(url_for('home'))
 
 
+def save_picture(form_picture):
+    # Take Care to Store Picture from User inside our Files System
+    random_hex = secrets.token_hex(8)  # Store a Random Hex Numbers by importing secrets
+    # OS (import) take care of files-extension
+    _, f_ext = os.path.splitext(form_picture.filename)  # _ is the file name (that we don't actually need)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics',
+                                picture_fn)  # Take Care of the Entire Path of File
+
+    # Resize Picture to take less space and run faster.
+    output_size = (125, 125)  # Size of Picture
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
 # Add a security layer: Make sure user can't access pages if he don't have access to it... (use login_required )
-@app.route('/account')
+@app.route('/account', methods=['GET', 'POST'])
 @login_required  # Decorator
 def account():
-    return render_template('account.html', title='Account')
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account had been updated!', 'success')  # Success is the bootstrap class to make it prettier.
+        return redirect(url_for('account'))
+        # We want to do a redirect instead of render template because: (not calling post a 2nd time)
+        # Post/Get/Redirect Pattern: we don't want to re-submit the data a second time.
+        # Browser will send a get request instead
+
+    elif request.method == 'GET':  # We want to show the info of the user, when he arrive on the page.
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('account.html', title='Account', image_file=image_file, form=form)
+
+@app.route('/post/new')
+@login_required  # Decorator
+def new_post():
+    return render_template('create_post.html', title='New Post')
