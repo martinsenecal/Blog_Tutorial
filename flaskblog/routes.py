@@ -1,31 +1,17 @@
 import secrets, os
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm  # Classes from forms.py
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm  # Classes from forms.py
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from PIL import Image  # Resize Picture to take less Space.
-
-posts = [
-    {
-        'author': 'Corey',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
-    },
-    {
-        'author': 'Jane',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 23, 2018'
-    }
-]
 
 
 # Multiple routes for the same page.
 @app.route('/home')
 @app.route('/')
 def home():
+    posts = Post.query.all()
     return render_template('home.html', posts=posts)
 
 
@@ -123,7 +109,59 @@ def account():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
-@app.route('/post/new')
+
+@app.route('/post/new', methods=['GET', 'POST'])
 @login_required  # Decorator
 def new_post():
-    return render_template('create_post.html', title='New Post')
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post had been created!', 'success')  # Success is the bootstrap class to make it prettier.
+        return redirect(url_for('home'))
+
+    return render_template('create_post.html', title='New Post', form=form, legend='New Post')
+
+
+@app.route('/post/<int:post_id>')  # Useful for Custom Routes
+def post(post_id):
+    post = Post.query.get_or_404(post_id)  # If we are trying to look for a post that doesn't exist: return error.
+    return render_template('post.html', title=post.title, post=post)
+
+
+@app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])  # Useful for Custom Routes
+@login_required  # Decorator
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)  # If we are trying to look for a post that doesn't exist: return error.
+    if post.author != current_user:
+        abort(403)  # HTTP response for when user doesn't have the permission.
+
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()  # no add to db, since they are already inside the database.
+        flash('Your post had been updated!', 'success')  # Success is the bootstrap class to make it prettier.
+        return redirect(url_for('post', post_id=post.id))
+
+    elif request.method == 'GET':
+        # Add Current Information from the Post.
+        form.title.data = post.title
+        form.content.data = post.content
+
+    # legend is useful so we don't have to create 2 different html files just for 1 small difference.
+    return render_template('create_post.html', title='Update Post',
+                           form=form, legend='Update Post')
+
+
+@app.route("/post/<int:post_id>/delete", methods=['POST'])  # Useful for Custom Routes
+@login_required  # Decorator
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)  # If we are trying to look for a post that doesn't exist: return error.
+    if post.author != current_user:
+        abort(403)  # HTTP response for when user doesn't have the permission.
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post had been deleted!', 'success')  # Success is the bootstrap class to make it prettier.
+    return redirect(url_for('home'))
