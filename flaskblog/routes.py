@@ -1,8 +1,8 @@
-from flask import render_template, url_for, flash, redirect
-from flaskblog import app
+from flask import render_template, url_for, flash, redirect, request
+from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm  # Classes from forms.py
 from flaskblog.models import User, Post
-
+from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
     {
@@ -19,6 +19,7 @@ posts = [
     }
 ]
 
+
 # Multiple routes for the same page.
 @app.route('/home')
 @app.route('/')
@@ -33,10 +34,16 @@ def about():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:  # Check if User is already Log In
+        return redirect(url_for('home'))
     form = RegistrationForm()  # Create an instance of form.
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('home'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)  # Create User
+        db.session.add(user)
+        db.session.commit()  # Add User to the Database
+        flash('Your account has been created! You are now able to log in.', 'success')
+        return redirect(url_for('login'))
 
     return render_template('register.html', title='Register', form=form)
     # We have access to form (in red) inside our HTML files.
@@ -44,13 +51,35 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:  # Check if User is already Log In
+        return redirect(url_for('home'))
     form = LoginForm()  # Create an instance of form.
     if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == 'password':  # dummy data.
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('home'))
+        user = User.query.filter_by(email=form.email.data).first()  # None if no User already with same email.
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            # Use Login Manager
+            login_user(user, remember=form.remember.data)
+
+            # If we are trying to access a page, we'll be able to access it after entering our login information
+            # instead of re-directing us to the home page again. (we have to import 'request' from flask)
+            next_page = request.args.get('next')  # Return None if we don't have a query...
+
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('Login Unsuccessful. Please check username and password', 'danger')
+            flash('Login Unsuccessful. Please check email and password', 'danger')
 
     return render_template('login.html', title='Login', form=form)
     # We have access to form(in read) inside our HTML files.
+
+
+@app.route('/logout')
+def logout():
+    logout_user()  # We use a function already built by Flask to Log Out the Current User (with login manager)
+    return redirect(url_for('home'))
+
+
+# Add a security layer: Make sure user can't access pages if he don't have access to it... (use login_required )
+@app.route('/account')
+@login_required  # Decorator
+def account():
+    return render_template('account.html', title='Account')
