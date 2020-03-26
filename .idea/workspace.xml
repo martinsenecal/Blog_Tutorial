@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2731067b-acd0-4ed8-99aa-d82ecc6fb26e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskblog/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flaskblog/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskblog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flaskblog/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flaskblog/site.db" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/site.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskblog/templates/create_post.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/templates/create_post.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flaskblog/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskblog/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskblog/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskblog/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +105,9 @@
       <option name="presentableId" value="Default" />
       <updated>1584992655879</updated>
       <workItem from="1584992662591" duration="296000" />
-      <workItem from="1584992967458" duration="20844000" />
+      <workItem from="1584992967458" duration="20960000" />
+      <workItem from="1585151248328" duration="243000" />
+      <workItem from="1585185904446" duration="5455000" />
     </task>
     <servers />
   </component>
@@ -116,25 +119,33 @@
       <screen x="1440" y="-353" width="2560" height="1080" />
     </state>
     <state x="2696" y="-151" key="#com.intellij.execution.impl.EditConfigurationsDialog/1440.-353.2560.1080/0.0.1440.900@1440.-353.2560.1080" timestamp="1585011299988" />
-    <state width="1279" height="130" key="GridCell.Tab.0.bottom" timestamp="1585025606668">
-      <screen x="1440" y="-330" width="2560" height="1005" />
+    <state width="1279" height="129" key="GridCell.Tab.0.bottom" timestamp="1585193088031">
+      <screen x="1440" y="-330" width="2560" height="1057" />
     </state>
-    <state width="1279" height="130" key="GridCell.Tab.0.bottom/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585025606668" />
+    <state width="1279" height="116" key="GridCell.Tab.0.bottom/0.23.2560.1005@0.23.2560.1005" timestamp="1585190409615" />
+    <state width="1279" height="116" key="GridCell.Tab.0.bottom/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585188024225" />
+    <state width="1279" height="129" key="GridCell.Tab.0.bottom/1440.-330.2560.1057/0.23.1440.830@1440.-330.2560.1057" timestamp="1585193088031" />
     <state width="1494" height="261" key="GridCell.Tab.0.bottom/1440.-353.2560.1080/0.0.1440.900@1440.-353.2560.1080" timestamp="1585014735270" />
-    <state width="1279" height="130" key="GridCell.Tab.0.center" timestamp="1585025606667">
-      <screen x="1440" y="-330" width="2560" height="1005" />
+    <state width="1279" height="129" key="GridCell.Tab.0.center" timestamp="1585193088030">
+      <screen x="1440" y="-330" width="2560" height="1057" />
     </state>
-    <state width="1279" height="130" key="GridCell.Tab.0.center/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585025606667" />
+    <state width="1279" height="116" key="GridCell.Tab.0.center/0.23.2560.1005@0.23.2560.1005" timestamp="1585190409614" />
+    <state width="1279" height="116" key="GridCell.Tab.0.center/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585188024224" />
+    <state width="1279" height="129" key="GridCell.Tab.0.center/1440.-330.2560.1057/0.23.1440.830@1440.-330.2560.1057" timestamp="1585193088030" />
     <state width="1494" height="261" key="GridCell.Tab.0.center/1440.-353.2560.1080/0.0.1440.900@1440.-353.2560.1080" timestamp="1585014735269" />
-    <state width="1279" height="130" key="GridCell.Tab.0.left" timestamp="1585025606666">
-      <screen x="1440" y="-330" width="2560" height="1005" />
+    <state width="1279" height="129" key="GridCell.Tab.0.left" timestamp="1585193088030">
+      <screen x="1440" y="-330" width="2560" height="1057" />
     </state>
-    <state width="1279" height="130" key="GridCell.Tab.0.left/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585025606666" />
+    <state width="1279" height="116" key="GridCell.Tab.0.left/0.23.2560.1005@0.23.2560.1005" timestamp="1585190409614" />
+    <state width="1279" height="116" key="GridCell.Tab.0.left/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585188024223" />
+    <state width="1279" height="129" key="GridCell.Tab.0.left/1440.-330.2560.1057/0.23.1440.830@1440.-330.2560.1057" timestamp="1585193088030" />
     <state width="1494" height="261" key="GridCell.Tab.0.left/1440.-353.2560.1080/0.0.1440.900@1440.-353.2560.1080" timestamp="1585014735268" />
-    <state width="1279" height="130" key="GridCell.Tab.0.right" timestamp="1585025606668">
-      <screen x="1440" y="-330" width="2560" height="1005" />
+    <state width="1279" height="129" key="GridCell.Tab.0.right" timestamp="1585193088030">
+      <screen x="1440" y="-330" width="2560" height="1057" />
     </state>
-    <state width="1279" height="130" key="GridCell.Tab.0.right/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585025606668" />
+    <state width="1279" height="116" key="GridCell.Tab.0.right/0.23.2560.1005@0.23.2560.1005" timestamp="1585190409615" />
+    <state width="1279" height="116" key="GridCell.Tab.0.right/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585188024224" />
+    <state width="1279" height="129" key="GridCell.Tab.0.right/1440.-330.2560.1057/0.23.1440.830@1440.-330.2560.1057" timestamp="1585193088030" />
     <state width="1494" height="261" key="GridCell.Tab.0.right/1440.-353.2560.1080/0.0.1440.900@1440.-353.2560.1080" timestamp="1585014735269" />
     <state width="1670" height="300" key="GridCell.Tab.1.bottom" timestamp="1584994109146">
       <screen x="1440" y="-330" width="2560" height="1005" />
@@ -160,12 +171,12 @@
       <screen x="1440" y="-330" width="2560" height="1005" />
     </state>
     <state x="2838" y="-188" key="SettingsEditor/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585019594016" />
-    <state x="2603" y="-24" key="com.intellij.ide.util.TipDialog" timestamp="1584992967863">
+    <state x="2603" y="-24" key="com.intellij.ide.util.TipDialog" timestamp="1585185906101">
       <screen x="1440" y="-330" width="2560" height="1005" />
     </state>
-    <state x="2603" y="-24" key="com.intellij.ide.util.TipDialog/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1584992967863" />
+    <state x="2603" y="-24" key="com.intellij.ide.util.TipDialog/1440.-330.2560.1005/0.23.1440.877@1440.-330.2560.1005" timestamp="1585185906101" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Blog_Tutorial$Blog_Tutorial.coverage" NAME="Blog_Tutorial Coverage Results" MODIFIED="1585025606658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Blog_Tutorial$Blog_Tutorial.coverage" NAME="Blog_Tutorial Coverage Results" MODIFIED="1585192701528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
