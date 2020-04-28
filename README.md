@@ -16,6 +16,7 @@ Dependencies:
 - flask_bcrypt
 
 
-> Make sure to create app/secrets.py and in your secrets.py add the following:
+> Make sure to create your own SecretKey inside the __init__.py and add the following:
 > 
->SECRET_KEY = 'SOME RANDOM STRING'
+> app.config['SECRET_KEY'] = 'SOME RANDOM STRING'
+
